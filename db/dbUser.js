@@ -39,7 +39,19 @@ async function getUsers() {
 }
 
 async function createUser(body) {
+    try {
+        const input = new Users({
+            name: body.name,
+            password: body.password,
+            email: body.email,
+            phone: body.phone
+        });
 
+        return await input.save();
+    }
+    catch(e) {
+        console.error(`createUser(): ${e}`);
+    }
 }
 
 async function deleteUser(id) {

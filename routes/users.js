@@ -9,7 +9,12 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    const { error } = validateUser.input(req.body)
+    if(error) return res.status(400)
+        .send(error.details[0].message);
 
+    const user = await dbUser.createUser(req.body)
+    res.send(user);
 });
 
 router.put('/:id', async (req, res) => {
