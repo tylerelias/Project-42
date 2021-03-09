@@ -6,6 +6,7 @@ const connect = require('./db/dbConnect');
 // routes
 const home = require('./routes/home');
 const users = require('./routes/users');
+const nations = require('./routes/nations');
 // app
 const app = express();
 
@@ -19,6 +20,7 @@ connect.connectDb();
 
 app.use('/', home)
 app.use('/api/users', users);
+app.use('/api/nations', nations);
 
 if (app.get('env') === 'development') {
     console.log('Logging enabled');
