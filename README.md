@@ -1,6 +1,6 @@
 # Project-42
 
-A back-end application written in Node.js using MongoDB is a storage solution.
+A back-end application written in Node.js using MongoDB as a storage solution.
 
 The server will be hosting a nation simulation that is meant to replicate economies, politics and social aspects.
 Implementation of features has not begun as the project is a WIP.
