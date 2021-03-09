@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const dbUser = require('../db/dbUser');
+
+const validateUser = require('../validation/validateUser');
 
 
 router.get('/', async (req, res) => {
