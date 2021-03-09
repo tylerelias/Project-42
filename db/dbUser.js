@@ -40,27 +40,28 @@ async function getUsers() {
 
 async function createUser(body) {
     try {
-        const input = new Users({
+        const user = new Users({
             name: body.name,
             password: body.password,
             email: body.email,
             phone: body.phone
         });
 
-        return await input.save();
+        return await user.save();
     }
     catch(e) {
         console.error(`createUser(): ${e}`);
     }
 }
 
+async function editUser(id, data) {
+    return await Users.findByIdAndUpdate(id, data, {new: true});
+}
+
 async function deleteUser(id) {
 
 }
 
-async function editUser(id, data) {
-
-}
 
 
 async function getUser(id) {
