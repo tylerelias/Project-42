@@ -7,22 +7,35 @@ Implementation of features has not begun as the project is a WIP.
 
 ## Current Features
 
-empty... for now.
+### Node Js
+
+- Routes added
+- Pug added for *very* simple layouts
+- Joi added for input validation
+- 
+
+### Users
+
+- /users route added
+- Basic storage of user information
+- CRUD Operations for MongoDB
 
 ## WIP
 
 ### Node.js
 
-- Node.js functioning with /users and /nations routes
+- /nations routes
 
 ### Users
 
-- Basic storage of user information
-- CRUD Operations for MongoDB
+- User Authentication
+- Access limitations
+- Restrict DELETE requests
 
 
 ### Nations
 
 - Basic storage of nation information
 - CRUD Operations for MongoDB
+- Connect a nation to a user, 1 to 1 relation
 

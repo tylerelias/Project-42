@@ -45,7 +45,10 @@ router.delete('/:id', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
+    const user = await dbUser.getUser(req.params.id);
 
+    if(!user) return res.status(404).send('User not found');
+    res.send(user);
 });
 
 module.exports = router;
