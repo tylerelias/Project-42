@@ -32,6 +32,12 @@ const Users = mongoose.model('Users', new mongoose.Schema({
     }
 }));
 
+async function getUsers() {
+    return Users
+        .find()
+        .sort('name');
+}
+
 async function createUser(body) {
 
 }
@@ -44,9 +50,6 @@ async function editUser(id, data) {
 
 }
 
-async function getUsers() {
-
-}
 
 async function getUser(id) {
 

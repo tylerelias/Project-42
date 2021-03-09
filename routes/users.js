@@ -4,9 +4,8 @@ const dbUser = require('../db/dbUser');
 
 const validateUser = require('../validation/validateUser');
 
-
 router.get('/', async (req, res) => {
-
+    res.send(await dbUser.getUsers())
 });
 
 router.post('/', async (req, res) => {
