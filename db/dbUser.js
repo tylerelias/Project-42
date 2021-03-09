@@ -59,7 +59,7 @@ async function editUser(id, data) {
 }
 
 async function deleteUser(id) {
-
+    return Users.findByIdAndRemove(id);
 }
 
 
