@@ -9,6 +9,7 @@ const Nations = mongoose.model('Nations', new mongoose.Schema({
     },
     population: {
         type: Number,
+        min: 0,
         required: true
     },
     balance: {
@@ -16,15 +17,36 @@ const Nations = mongoose.model('Nations', new mongoose.Schema({
         required: true
     },
     social_policies: {
-        equality: { type: Number },
-        religion: { type: Number }
+        equality: {
+            type: Number,
+            min: 0, max: 1
+        },
+        religion: {
+            type: Number,
+            min: 0, max: 1
+        }
     } ,
     economic_policies: {
-        education: { type: Number },
-        healthcare: { type: Number },
-        welfare: { type: Number},
-        transportation: { type: Number },
-        taxation: { type: Number }
+        education: {
+            type: Number,
+            min: 0, max: 1
+        },
+        healthcare: {
+            type: Number,
+            min: 0, max: 1
+        },
+        welfare: {
+            type: Number,
+            min: 0, max: 1
+        },
+        transportation: {
+            type: Number,
+            min: 0, max: 1
+        },
+        taxation: {
+            type: Number,
+            min: 0, max: 1
+        }
     }
 }));
 

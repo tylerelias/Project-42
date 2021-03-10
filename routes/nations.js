@@ -15,6 +15,9 @@ router.post('/', async (req, res) => {
         .send(error.details[0].message);
 
     const nation = await dbNation.createNation(req.body);
+    if (!nation) return res.status(400)
+        .send('Invalid request'); // happens if someone sends an invalid API call
+
     res.send(nation);
 });
 
