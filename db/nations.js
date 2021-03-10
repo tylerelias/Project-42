@@ -1,4 +1,4 @@
-const { Nation, validate } = require('../models/nation');
+const { Nation } = require('../models/nation');
 const { getUser } = require('./users');
 
 async function getNations() {
