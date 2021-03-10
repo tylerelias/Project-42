@@ -31,14 +31,14 @@ router.put('/:id', async (req, res) => {
     res.send(nation);
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', async (req, res) => {
     const nation = await dbNations.deleteNation(req.params.id);
 
     if (!nation) return res.status(400).send('Invalid request');
     res.send(nation);
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', async (req, res) => {
     const user = await dbNations.getNation(req.params.id);
 
     if(!user) return res.status(404).send('Invalid request');
