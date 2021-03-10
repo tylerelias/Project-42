@@ -52,5 +52,9 @@ async function createNation(body) {
     }
 }
 
+async function editNation(id, data) {
+    return await Nations.findByIdAndUpdate(id, data, {new: true});
+}
 
-module.exports = { getNations, createNation }
+
+module.exports = { getNations, createNation, editNation }

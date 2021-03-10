@@ -63,7 +63,6 @@ async function deleteUser(id) {
 }
 
 
-
 async function getUser(id) {
     return Users.findById(id);
 }
