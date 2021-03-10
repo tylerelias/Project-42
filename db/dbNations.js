@@ -15,17 +15,42 @@ const Nations = mongoose.model('Nations', new mongoose.Schema({
         type: Number,
         required: true
     },
-    social_policies: [ Array ],
-    economic_policies: [ Array ]
+    social_policies: {
+        equality: { type: Number },
+        religion: { type: Number }
+    } ,
+    economic_policies: {
+        education: { type: Number },
+        healthcare: { type: Number },
+        welfare: { type: Number},
+        transportation: { type: Number },
+        taxation: { type: Number }
+    }
 }));
 
 
 async function getNations() {
-    const nations = Nations
+    return Nations
         .find()
         .sort('name');
-    return nations;
+}
+
+async function createNation(body) {
+    try {
+        const nation = new Nations({
+            name: body.name,
+            population: body.population,
+            balance: body.balance,
+            social_policies: body.social_policies,
+            economic_policies: body.economic_policies
+        });
+
+        return await nation.save();
+    }
+    catch (e) {
+        console.error(`createUser(): ${e}`);
+    }
 }
 
 
-module.exports = { getNations }
+module.exports = { getNations, createNation }

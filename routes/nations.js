@@ -10,7 +10,12 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    const { error } = validateNation.input(req.body)
+    if (error) return res.status(400)
+        .send(error.details[0].message);
 
+    const nation = await dbNation.createNation(req.body);
+    res.send(nation);
 });
 
 router.put('/:id', async (req, res) => {

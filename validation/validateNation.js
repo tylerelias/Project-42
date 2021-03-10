@@ -5,8 +5,8 @@ function input(input) {
         name: Joi.string().required(),
         population: Joi.number().required(),
         balance: Joi.number().required(),
-        social_policies: Joi.array(),
-        economic_policies: Joi.array
+        social_policies: Joi.object(),
+        economic_policies: Joi.object()
     });
 
     return {error, value} = schema.validate(input);
