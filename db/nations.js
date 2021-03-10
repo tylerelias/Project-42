@@ -4,6 +4,7 @@ const { getUser } = require('./users');
 async function getNations() {
     return Nation
         .find()
+        .populate('owner')
         .sort('name');
 }
 
@@ -68,7 +69,9 @@ async function deleteNation(id) {
 
 async function getNation(id) {
     try {
-        return await Nation.findById(id);
+        return await Nation
+            .findById(id)
+            .populate('owner');
     } catch (e) {
         console.error(`getNation(): ${e}`);
     }

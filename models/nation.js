@@ -51,7 +51,8 @@ const Nation = mongoose.model('Nations', new mongoose.Schema({
     },
     owner: {
         required: true,
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
     }
 }));
 
