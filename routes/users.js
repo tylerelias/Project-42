@@ -40,7 +40,6 @@ router.delete('/:id', async (req, res) => {
     const user = await dbUser.deleteUser(req.params.id);
 
     if(!user) return res.status(404).send('User not found');
-
     res.send(user);
 });
 

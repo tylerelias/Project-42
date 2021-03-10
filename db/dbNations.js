@@ -99,8 +99,29 @@ async function editNation(id, body) {
     catch (e) {
         console.error(`editNation(): ${e}`);
     }
+}
 
+async function deleteNation(id) {
+    try {
+        return await Nations.findByIdAndRemove(id);
+    } catch (e) {
+        console.error(`deleteNation(): ${e}`);
+    }
+}
+
+async function getNation(id) {
+    try {
+        return await Nations.findById(id);
+    } catch (e) {
+        console.error(`getNation(): ${e}`)
+    }
 }
 
 
-module.exports = { getNations, createNation, editNation }
+module.exports = {
+    getNations,
+    createNation,
+    editNation,
+    deleteNation,
+    getNation
+}
