@@ -2,7 +2,7 @@
 const helmet = require('helmet');
 const morgan = require('morgan');
 const express = require('express');
-const connect = require('./db/dbConnect');
+const connect = require('./db/connect');
 // routes
 const home = require('./routes/home');
 const users = require('./routes/users');

@@ -1,20 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const dbNations = require('../db/dbNations');
-
-const validateNation = require('../validation/validateNation');
+const { getNation, editNation, createNation, deleteNation, getNations } = require('../db/nations');
+const { validate } = require('../models/nation');
 
 
 router.get('/', async (req, res) => {
-    res.send(await dbNations.getNations())
+    res.send(await getNations())
 });
 
 router.post('/', async (req, res) => {
-    const { error } = validateNation.input(req.body)
-    if (error) return res.status(400)
-        .send(error.details[0].message);
+    const { error } = validate(req.body)
+    if (error) {
+        console.error(`POST - /nation/ - ${error.message}`)
+        return res.status(400).send('Invalid request');
+    }
 
-    const nation = await dbNations.createNation(req.body);
+    const nation = await createNation(req.body);
     if (!nation) return res.status(400)
         .send('Invalid request');
 
@@ -22,24 +23,27 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-    const { error } = validateNation.input(req.body);
-    if (error) return res.status(400);
+    const { error } = validate(req.body);
+    if (error) {
+        console.error(`PUT - /nation/:id - ${error.message}`)
+        return res.status(400).send('Invalid request');
+    }
 
-    const nation = await dbNations.editNation(req.params.id, req.body);
+    const nation = await editNation(req.params.id, req.body);
     if(!nation) return res.status(400).send('Invalid request');
 
     res.send(nation);
 });
 
 router.delete('/:id', async (req, res) => {
-    const nation = await dbNations.deleteNation(req.params.id);
+    const nation = await deleteNation(req.params.id);
 
     if (!nation) return res.status(400).send('Invalid request');
     res.send(nation);
 });
 
 router.get('/:id', async (req, res) => {
-    const user = await dbNations.getNation(req.params.id);
+    const user = await getNation(req.params.id);
 
     if(!user) return res.status(404).send('Invalid request');
     res.send(user);
