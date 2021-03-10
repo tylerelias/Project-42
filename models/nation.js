@@ -5,6 +5,7 @@ const Nation = mongoose.model('Nations', new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        unique: true,
         minlength: 1,
         maxlength: 32
     },
@@ -51,6 +52,7 @@ const Nation = mongoose.model('Nations', new mongoose.Schema({
     },
     owner: {
         required: true,
+        unique: true,
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users'
     }
@@ -58,13 +60,19 @@ const Nation = mongoose.model('Nations', new mongoose.Schema({
 
 function validateNation(input) {
     const schema = Joi.object({
-        name: Joi.string().required(),
-        population: Joi.number().required().min(0),
-        balance: Joi.number().required(),
-        social_policies: Joi.object({
-            equality: Joi.number().min(0).max(1),
-            religion: Joi.number().min(0).max(1)
-        }),
+        name: Joi.string()
+            .required(),
+        population: Joi.number()
+            .required()
+            .min(0),
+        balance: Joi
+            .number()
+            .required(),
+        social_policies: Joi
+            .object({
+                equality: Joi.number().min(0).max(1),
+                religion: Joi.number().min(0).max(1)
+            }),
         economic_policies: Joi.object({
             education: Joi.number().min(0).max(1),
             healthcare: Joi.number().min(0).max(1),

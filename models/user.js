@@ -5,20 +5,22 @@ const User = mongoose.model('Users', new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        unique: true,
         minlength: 1,
-        maxlength: 30
+        maxlength: 32
     },
     password: {
         type: String,
         required: true,
         minlength: 5,
-        maxlength: 128
+        maxlength: 1024
     },
     email: {
         type: String,
         required: true,
+        unique: true,
         minlength: 5,
-        maxlength: 128
+        maxlength: 255
     },
     phone: {
         type: String,
@@ -34,12 +36,28 @@ const User = mongoose.model('Users', new mongoose.Schema({
 
 function validateUser(input) {
     const schema = Joi.object({
-        name: Joi.string().required(),
-        password: Joi.string().required(),
-        email: Joi.string().email({
-            tlds: {allow: false}
-        }).required(),
-        phone: Joi.string().required()
+        name: Joi
+            .string()
+            .min(1)
+            .max(32)
+            .required(),
+        password: Joi
+            .string()
+            .min(5)
+            .max(255)
+            .required(),
+        email: Joi
+            .string()
+            .email({
+                tlds: {allow: false}
+            })
+            .min(5)
+            .max(255)
+            .required(),
+        phone: Joi.string()
+            .min(5)
+            .max(64)
+            .required()
     });
 
     return {error, value} = schema.validate(input);
