@@ -1,4 +1,4 @@
-const { User } = require('../models/user');
+const {User} = require('../models/user');
 
 async function getUsers() {
     return User
@@ -16,8 +16,7 @@ async function createUser(body) {
         });
 
         return await user.save();
-    }
-    catch(e) {
+    } catch (e) {
         console.error(`createUser(): ${e}`);
     }
 }

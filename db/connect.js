@@ -9,4 +9,4 @@ function connectDb() {
         .catch(error => console.error("Could not connect to MongoDB: ", error));
 }
 
-module.exports = { connectDb };
+module.exports = {connectDb};

@@ -1,10 +1,10 @@
-const { Nation } = require('../models/nation');
-const { getUser } = require('./users');
+const {Nation} = require('../models/nation');
+const {getUser} = require('./users');
 
 async function getNations() {
     return Nation
         .find()
-        .populate('owner', 'name')
+        .populate('owner', 'name -_id')
         .sort('name');
 }
 
@@ -23,8 +23,7 @@ async function createNation(body) {
             });
             return await nation.save();
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.error(`createNation(): ${e}`);
     }
 }
@@ -53,8 +52,7 @@ async function editNation(id, body) {
         };
 
         return await Nation.findByIdAndUpdate(id, data, {new: true});
-    }
-    catch (e) {
+    } catch (e) {
         console.error(`editNation(): ${e}`);
     }
 }
@@ -71,12 +69,11 @@ async function getNation(id) {
     try {
         return await Nation
             .findById(id)
-            .populate('owner', 'name');
+            .populate('owner', 'name -_id');
     } catch (e) {
         console.error(`getNation(): ${e}`);
     }
 }
-
 
 exports.createNation = createNation;
 exports.deleteNation = deleteNation;

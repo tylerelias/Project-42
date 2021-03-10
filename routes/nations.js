@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { getNation, editNation, createNation, deleteNation, getNations } = require('../db/nations');
-const { validate } = require('../models/nation');
+const {getNation, editNation, createNation, deleteNation, getNations} = require('../db/nations');
+const {validate} = require('../models/nation');
 
 
 router.get('/', async (req, res) => {
@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const { error } = validate(req.body)
+    const {error} = validate(req.body)
     if (error) {
         console.error(`POST - /nation/ - ${error.message}`)
         return res.status(400).send('Invalid request');
@@ -23,14 +23,14 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-    const { error } = validate(req.body);
+    const {error} = validate(req.body);
     if (error) {
         console.error(`PUT - /nation/:id - ${error.message}`)
         return res.status(400).send('Invalid request');
     }
 
     const nation = await editNation(req.params.id, req.body);
-    if(!nation) return res.status(400).send('Invalid request');
+    if (!nation) return res.status(400).send('Invalid request');
 
     res.send(nation);
 });
@@ -45,7 +45,7 @@ router.delete('/:id', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const user = await getNation(req.params.id);
 
-    if(!user) return res.status(404).send('Invalid request');
+    if (!user) return res.status(404).send('Invalid request');
     res.send(user);
 });
 

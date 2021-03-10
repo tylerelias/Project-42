@@ -37,7 +37,7 @@ function validateUser(input) {
         name: Joi.string().required(),
         password: Joi.string().required(),
         email: Joi.string().email({
-            tlds: { allow: false }
+            tlds: {allow: false}
         }).required(),
         phone: Joi.string().required()
     });
