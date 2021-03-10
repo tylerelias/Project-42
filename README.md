@@ -36,8 +36,9 @@ Implementation of features has not begun as the project is a WIP.
 - User Authentication
 - Access limitations
 - Restrict DELETE requests
+- Add tests
 
 ### Nations
 
 - Connect a nation to a user, 1 to 1 relation
-
+- Add tests
