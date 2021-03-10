@@ -59,12 +59,20 @@ async function editUser(id, data) {
 }
 
 async function deleteUser(id) {
-    return Users.findByIdAndRemove(id);
+    try {
+        return await Users.findByIdAndRemove(id);
+    } catch (e) {
+        console.error(`deleteUser(): ${e}`);
+    }
 }
 
 
 async function getUser(id) {
-    return Users.findById(id);
+    try {
+        return await Users.findById(id);
+    } catch (e) {
+        console.error(`getUser(): ${e}`);
+    }
 }
 
 module.exports = {

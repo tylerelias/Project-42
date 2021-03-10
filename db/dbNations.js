@@ -113,7 +113,7 @@ async function getNation(id) {
     try {
         return await Nations.findById(id);
     } catch (e) {
-        console.error(`getNation(): ${e}`)
+        console.error(`getNation(): ${e}`);
     }
 }
 
