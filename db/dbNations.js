@@ -70,12 +70,36 @@ async function createNation(body) {
         return await nation.save();
     }
     catch (e) {
-        console.error(`createUser(): ${e}`);
+        console.error(`createNation(): ${e}`);
     }
 }
 
-async function editNation(id, data) {
-    return await Nations.findByIdAndUpdate(id, data, {new: true});
+async function editNation(id, body) {
+    try {
+        const data = new Nations({
+            name: body.name,
+            population: body.population,
+            balance: body.balance,
+            social_policies: {
+                equality: body.social_policies.equality,
+                religion: body.social_policies.religion
+            },
+            economic_policies: {
+                education: body.economic_policies.education,
+                healthcare: body.economic_policies.healthcare,
+                welfare: body.economic_policies.welfare,
+                transportation: body.economic_policies.transportation,
+                taxation: body.economic_policies.taxation
+            }
+        });
+
+        await data.validate();
+        return await Nations.findByIdAndUpdate(id, data, {new: true});
+    }
+    catch (e) {
+        console.error(`editNation(): ${e}`);
+    }
+
 }
 
 
