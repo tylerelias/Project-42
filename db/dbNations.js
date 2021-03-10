@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const dbUsers = require('./dbUsers')
 
 const Nations = mongoose.model('Nations', new mongoose.Schema({
     name: {
@@ -47,6 +48,10 @@ const Nations = mongoose.model('Nations', new mongoose.Schema({
             type: Number,
             min: 0, max: 1
         }
+    },
+    owner: {
+        required: true,
+        type: String,
     }
 }));
 
@@ -59,15 +64,20 @@ async function getNations() {
 
 async function createNation(body) {
     try {
-        const nation = new Nations({
-            name: body.name,
-            population: body.population,
-            balance: body.balance,
-            social_policies: body.social_policies,
-            economic_policies: body.economic_policies
-        });
+        const userExists = await dbUsers.getUser(body.owner)
 
-        return await nation.save();
+        if (userExists) {
+            const nation = new Nations({
+                name: body.name,
+                population: body.population,
+                balance: body.balance,
+                social_policies: body.social_policies,
+                economic_policies: body.economic_policies,
+                owner: body.owner
+            });
+
+            return await nation.save();
+        }
     }
     catch (e) {
         console.error(`createNation(): ${e}`);
