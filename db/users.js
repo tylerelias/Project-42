@@ -6,14 +6,9 @@ async function getUsers() {
         .sort('name');
 }
 
-async function createUser(body) {
+async function createUser(data) {
     try {
-        const user = new User({
-            name: body.name,
-            password: body.password,
-            email: body.email,
-            phone: body.phone
-        });
+        const user = new User(data);
 
         return await user.save();
     } catch (e) {

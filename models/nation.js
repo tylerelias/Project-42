@@ -60,9 +60,11 @@ const Nation = mongoose.model('Nations', new mongoose.Schema({
 
 function validateNation(input) {
     const schema = Joi.object({
-        name: Joi.string()
+        name: Joi
+            .string()
             .required(),
-        population: Joi.number()
+        population: Joi
+            .number()
             .required()
             .min(0),
         balance: Joi
@@ -73,13 +75,14 @@ function validateNation(input) {
                 equality: Joi.number().min(0).max(1),
                 religion: Joi.number().min(0).max(1)
             }),
-        economic_policies: Joi.object({
-            education: Joi.number().min(0).max(1),
-            healthcare: Joi.number().min(0).max(1),
-            welfare: Joi.number().min(0).max(1),
-            transportation: Joi.number().min(0).max(1),
-            taxation: Joi.number().min(0).max(1)
-        }),
+        economic_policies: Joi
+            .object({
+                education: Joi.number().min(0).max(1),
+                healthcare: Joi.number().min(0).max(1),
+                welfare: Joi.number().min(0).max(1),
+                transportation: Joi.number().min(0).max(1),
+                taxation: Joi.number().min(0).max(1)
+            }),
         owner: Joi.string()
     });
 
