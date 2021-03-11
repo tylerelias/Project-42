@@ -24,7 +24,7 @@ async function createNation(body) {
             return await nation.save();
         }
     } catch (e) {
-        console.error(`createNation(): ${e}`);
+        console.log(`createNation(): ${e}`);
     }
 }
 
@@ -53,7 +53,7 @@ async function editNation(id, body) {
 
         return await Nation.findByIdAndUpdate(id, data, {new: true});
     } catch (e) {
-        console.error(`editNation(): ${e}`);
+        console.log(`editNation(): ${e}`);
     }
 }
 
@@ -61,7 +61,7 @@ async function deleteNation(id) {
     try {
         return await Nation.findByIdAndRemove(id);
     } catch (e) {
-        console.error(`deleteNation(): ${e}`);
+        console.log(`deleteNation(): ${e}`);
     }
 }
 
@@ -71,7 +71,7 @@ async function getNation(id) {
             .findById(id)
             .populate('owner', 'name _id');
     } catch (e) {
-        console.error(`getNation(): ${e}`);
+        console.log(`getNation(): ${e}`);
     }
 }
 
