@@ -26,6 +26,12 @@ Implementation of features has not begun as the project is a WIP.
 - CRUD Operations for MongoDB
 - Input validation
 
+### Authentication
+
+- User authentication added
+- Only the user that is the owner of a nation can delete it
+- Only the user that is the owner can edit a nation
+
 ## WIP
 
 ### Node.js

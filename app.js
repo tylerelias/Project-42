@@ -3,6 +3,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const express = require('express');
 const connect = require('./db/connect');
+const config = require('config');
 // routes
 const home = require('./routes/home');
 const users = require('./routes/users');
@@ -10,6 +11,11 @@ const nations = require('./routes/nations');
 const auth = require('./routes/auth');
 // app
 const app = express();
+
+if(!config.get('jwtPrivateKey')) {
+    console.error('jwtPrivateKey is not defined');
+    process.exit(1);
+}
 
 app.set('view engine', 'pug');
 app.set('views', './views');

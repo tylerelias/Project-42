@@ -105,3 +105,6 @@ dist
 
 # .idea Project folder
 .idea
+
+# config file
+config

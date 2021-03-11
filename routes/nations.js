@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
+const owner = require('../middleware/owner');
 const {getNation, editNation, createNation, deleteNation, getNations} = require('../db/nations');
 const {validate} = require('../models/nation');
 
@@ -8,7 +10,7 @@ router.get('/', async (req, res) => {
     res.send(await getNations())
 });
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     const {error} = validate(req.body)
     if (error) {
         console.error(`POST - /nation/ - ${error.message}`)
@@ -22,7 +24,7 @@ router.post('/', async (req, res) => {
     res.send(nation);
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', owner, async (req, res) => {
     const {error} = validate(req.body);
     if (error) {
         console.error(`PUT - /nation/:id - ${error.message}`)
@@ -35,9 +37,8 @@ router.put('/:id', async (req, res) => {
     res.send(nation);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', owner, async (req, res) => {
     const nation = await deleteNation(req.params.id);
-
     if (!nation) return res.status(400).send('Invalid request');
     res.send(nation);
 });

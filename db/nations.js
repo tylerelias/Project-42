@@ -31,7 +31,7 @@ async function createNation(body) {
 async function editNation(id, body) {
     try {
         const nation = await getNation(id)
-        const ownerId = nation.owner
+        const ownerId = nation.owner._id
 
         const data = {
             name: body.name,
@@ -69,7 +69,7 @@ async function getNation(id) {
     try {
         return await Nation
             .findById(id)
-            .populate('owner', 'name -_id');
+            .populate('owner', 'name _id');
     } catch (e) {
         console.error(`getNation(): ${e}`);
     }
