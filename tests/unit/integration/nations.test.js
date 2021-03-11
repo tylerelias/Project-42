@@ -79,13 +79,25 @@ describe('/api/nations', () =>{
             expect(res.status).toBe(401);
         });
 
-        it('should return 400 if nation name is not valid', async () => {
+        it('should return 400 if nation name is a number', async () => {
             const token = new User().generateAuthToken();
 
             const res = await request(server)
                 .post('/api/nations/')
                 .set('x-auth-token', token)
                 .send({ name: 1});
+
+            expect(res.status).toBe(400);
+        });
+
+        it('should return 400 if nation name is longer than 32 chars', async () => {
+            const token = new User().generateAuthToken();
+            const name = new Array(34).join('t');
+
+            const res = await request(server)
+                .post('/api/nations/')
+                .set('x-auth-token', token)
+                .send({ name: name});
 
             expect(res.status).toBe(400);
         });

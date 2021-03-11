@@ -62,6 +62,8 @@ function validateNation(input) {
     const schema = Joi.object({
         name: Joi
             .string()
+            .min(1)
+            .max(32)
             .required(),
         population: Joi
             .number()
