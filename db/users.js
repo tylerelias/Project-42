@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const {User} = require('../models/user');
 
 async function getUsers() {
@@ -9,6 +10,9 @@ async function getUsers() {
 async function createUser(data) {
     try {
         const user = new User(data);
+
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
 
         return await user.save();
     } catch (e) {
