@@ -4,6 +4,7 @@ const {User} = require('../models/user');
 async function getUsers() {
     return User
         .find()
+        .select('-password -email -phone')
         .sort('name');
 }
 
@@ -39,12 +40,18 @@ async function deleteUser(id) {
 
 async function getUser(id) {
     try {
-        return await User.findById(id);
+        return User.findById(id)
+            .select('-password -email');
     } catch (e) {
         console.error(`getUser(): ${e}`);
     }
 }
 
+async function authUser(req) {
+    return User.findById(req.user._id).select('-password')
+}
+
+exports.authUser = authUser;
 exports.createUser = createUser;
 exports.deleteUser = deleteUser;
 exports.editUser = editUser;

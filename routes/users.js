@@ -1,8 +1,14 @@
+const auth = require('../middleware/auth');
 const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
-const {getUsers, editUser, createUser, deleteUser, getUser} = require('../db/users');
+const {getUsers, editUser, createUser, deleteUser, getUser, authUser} = require('../db/users');
 const {validate} = require('../models/user');
+
+router.get('/home', auth, async (req, res) => {
+    const user = await authUser(req);
+    res.send(user);
+});
 
 router.get('/', async (req, res) => {
     res.send(await getUsers())

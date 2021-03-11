@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
-const owner = require('../middleware/owner');
+const owner = require('../middleware/nationOwner');
 const {getNation, editNation, createNation, deleteNation, getNations} = require('../db/nations');
 const {validate} = require('../models/nation');
 
