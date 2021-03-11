@@ -4,6 +4,7 @@ const auth = require('../middleware/auth');
 const owner = require('../middleware/nationOwner');
 const {getNation, editNation, createNation, deleteNation, getNations} = require('../db/nations');
 const {validate} = require('../models/nation');
+const validateObjectId = require('../middleware/validateObjectId');
 
 
 router.get('/', async (req, res) => {
@@ -13,7 +14,7 @@ router.get('/', async (req, res) => {
 router.post('/', auth, async (req, res) => {
     const {error} = validate(req.body)
     if (error) {
-        console.error(`POST - /nation/ - ${error.message}`)
+        console.log(`POST - /nation/ - ${error.message}`)
         return res.status(400).send('Invalid request');
     }
 
@@ -27,7 +28,7 @@ router.post('/', auth, async (req, res) => {
 router.put('/:id', owner, async (req, res) => {
     const {error} = validate(req.body);
     if (error) {
-        console.error(`PUT - /nation/:id - ${error.message}`)
+        console.log(`PUT - /nation/:id - ${error.message}`)
         return res.status(400).send('Invalid request');
     }
 
@@ -37,13 +38,13 @@ router.put('/:id', owner, async (req, res) => {
     res.send(nation);
 });
 
-router.delete('/:id', owner, async (req, res) => {
+router.delete('/:id', validateObjectId, owner, async (req, res) => {
     const nation = await deleteNation(req.params.id);
     if (!nation) return res.status(400).send('Invalid request');
     res.send(nation);
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', validateObjectId, async (req, res) => {
     const user = await getNation(req.params.id);
 
     if (!user) return res.status(404).send('Invalid request');
