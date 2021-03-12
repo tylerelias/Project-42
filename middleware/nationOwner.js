@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const { Nation } = require('../models/nation');
 
+// verifies that the person trying to access a features
+// is indeed the owner of that nation
 module.exports = async function owner(req, res, next) {
     const token = req.header('x-auth-token');
     if(!token) return res.status(401).send('Access denied');
@@ -19,7 +21,7 @@ module.exports = async function owner(req, res, next) {
         }
     }
     catch (e) {
-        console.error(`owner: ${e}`);
+        console.log(`owner: ${e}`);
         res.status(400).send('Invalid token');
     }
 }

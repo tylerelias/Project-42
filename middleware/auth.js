@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
+// user is authenticated by checking their JWT token
 module.exports = function auth(req, res, next) {
     const token = req.header('x-auth-token');
     if(!token) return res.status(401).send('Access denied');
@@ -11,7 +12,7 @@ module.exports = function auth(req, res, next) {
         next();
     }
     catch (e) {
-        console.error(`auth: ${e}`);
+        console.log(`auth: ${e}`);
         res.status(401).send('Invalid token');
     }
 }
