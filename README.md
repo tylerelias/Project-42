@@ -9,42 +9,51 @@ Implementation of features has not begun as the project is a WIP.
 
 ### Node Js
 
-- Pug added for *very* simple layouts
 - Joi added for input validation
-- /nations and /users routes
-
+- Mongoose data validation
+- /api/nations path added with CRUD operations
+- /api/nations path added with CRUD operations
+- /api/auth path added for user authentication
+- Uncaught exceptions and rejections are now caught
 
 ### Users
 
 - Basic storage of user information
 - CRUD Operations for MongoDB
 - Input validation
+- /api/nations/ POST request now only shows limited info
 
 ### Nations
 
 - Basic storage of nation information
 - CRUD Operations for MongoDB
-- Input validation
+- Input validation when sending CRUD req
+- User Authentication
+- Access limitations
+    - Restrict DELETE requests to the owner only
+    - Restrict PUT requests to owner only
+- Integration tests added
+    - Still needs more code coverage
 
 ### Authentication
 
 - User authentication added
-- Only the user that is the owner of a nation can delete it
-- Only the user that is the owner can edit a nation
+- A JWT token is assigned to a user when he logs in
 
 ## WIP
 
 ### Node.js
 
+- Error logging with winston
 
 ### Users
 
-- User Authentication
-- Access limitations
-- Restrict DELETE requests
-- Add tests
+- Write more tests
 
 ### Nations
 
-- Connect a nation to a user, 1 to 1 relation
-- Add tests
+- Write tests
+
+### Authentication
+
+- User can log out (remove auth header token)
