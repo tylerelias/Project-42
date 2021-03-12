@@ -4,7 +4,7 @@ const {User} = require('../models/user');
 async function getUsers() {
     return User
         .find()
-        .select('-password -email -phone -isAdmin')
+        .select('-password -email -phone')
         .sort('name');
 }
 
@@ -41,7 +41,7 @@ async function deleteUser(id) {
 async function getUser(id) {
     try {
         return User.findById(id)
-            .select('-password -email -isAdmin');
+            .select('-password -email');
     } catch (e) {
         console.error(`getUser(): ${e}`);
     }
