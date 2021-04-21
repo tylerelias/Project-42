@@ -9,8 +9,6 @@ const Diplomacy = mongoose.model('Diplomacy', new mongoose.Schema({
         ref: 'Users'
     },
     alliance: {
-        required: true,
-        unique: true,
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Alliances'
     }

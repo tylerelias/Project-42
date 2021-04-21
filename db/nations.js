@@ -1,4 +1,11 @@
 const {Nation} = require('../models/nation');
+const {Budget} = require('../models/budget');
+const {Diplomacy} = require('../models/diplomacy');
+const {Finance} = require('../models/finance');
+const {Military} = require('../models/military');
+const {Politics} = require('../models/politics');
+const {Population} = require('../models/population');
+const {Social} = require('../models/social');
 const {getUser} = require('./users');
 
 async function getNations() {
@@ -15,13 +22,34 @@ async function createNation(body) {
         if (userExists) {
             const nation = new Nation({
                 name: body.name,
-                population: body.population,
-                balance: body.balance,
-                social_policies: body.social_policies,
-                economic_policies: body.economic_policies,
                 owner: body.owner
             });
-            return await nation.save();
+            const answer = await nation.save();
+            const id = answer._doc._id;
+            const budget = new Budget({owner: id});
+            await budget.save();
+            const diplomacy = new Diplomacy({owner: id});
+            await diplomacy.save();
+            const finance = new Finance({owner: id});
+            await finance.save();
+            const military = new Military({owner: id});
+            await military.save();
+            const politics = new Politics({owner: id});
+            await politics.save();
+            const population = new Population({owner: id});
+            await population.save();
+            const social = new Social({owner: id});
+            await social.save();
+            await editNation(id, {
+                budget,
+                diplomacy,
+                finance,
+                military,
+                politics,
+                population,
+                social
+            });
+            return answer;
         }
     } catch (e) {
         console.log(`createNation(): ${e}`);
@@ -35,19 +63,6 @@ async function editNation(id, body) {
 
         const data = {
             name: body.name,
-            population: body.population,
-            balance: body.balance,
-            social_policies: {
-                equality: body.social_policies.equality,
-                religion: body.social_policies.religion
-            },
-            economic_policies: {
-                education: body.economic_policies.education,
-                healthcare: body.economic_policies.healthcare,
-                welfare: body.economic_policies.welfare,
-                transportation: body.economic_policies.transportation,
-                taxation: body.economic_policies.taxation
-            },
             owner: ownerId
         };
 
