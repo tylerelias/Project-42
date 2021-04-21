@@ -3,7 +3,8 @@
   "version": "0.0.1a",
   "scripts": {
     "test": "jest --watchAll --verbose",
-    "start": ". ./config/config.env && nodemon app.js"
+    "start": ". ./config/config.env && nodemon app.js",
+    "start_db": "sudo mongod"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
         .send(error.details[0].message);
 
     const user = await createUser(
-        _.pick(req.body, ['name', 'password', 'email', 'phone']
+        _.pick(req.body, ['name', 'password', 'email']
         ));
 
     const token = user.generateAuthToken();
@@ -36,7 +36,7 @@ router.put('/:id', async (req, res) => {
 
     const user = await editUser(
         req.params.id,
-        _.pick(req.body, ['name', 'password', 'email', 'phone'])
+        _.pick(req.body, ['name', 'password', 'email'])
     );
 
     if (!user) return res.status(404).send('User not found');
